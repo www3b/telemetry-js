@@ -1,32 +1,35 @@
 {
-  "name": "telemetry-js",
-  "version": "0.1.0",
-  "author": "www3b",
-  "type": "module",
-  "sideEffects": false,
-  "files": ["dist"],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    }
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "test": "vitest",
-    "lint": "biome lint .",
-    "format": "biome format --write .",
-    "check": "biome check ."
-  },
-  "devDependencies": {
-    "@biomejs/biome": "latest",
-    "tsdown": "latest",
-    "typescript": "latest",
-    "vitest": "latest"
-  }
+	"name": "telemetry-js",
+	"version": "0.1.0",
+	"author": "www3b",
+	"type": "module",
+	"sideEffects": false,
+	"files": [
+		"dist"
+	],
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs"
+		}
+	},
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"build": "tsdown",
+		"dev": "tsdown --watch",
+		"test": "vitest",
+		"lint": "biome lint .",
+		"format": "biome format --write .",
+		"check": "biome check ."
+	},
+	"devDependencies": {
+		"@biomejs/biome": "latest",
+		"@types/node": "^25.0.9",
+		"tsdown": "latest",
+		"typescript": "latest",
+		"vitest": "latest"
+	}
 }
