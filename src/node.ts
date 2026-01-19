@@ -15,6 +15,11 @@ import {
 } from "./core/telemetry";
 
 export type { CreateTelemetryOptions };
+export type {
+	HttpBatchTransport,
+	HttpBatchTransportOptions,
+} from "./transports/httpBatch";
+export { httpBatchTransport } from "./transports/httpBatch";
 
 /**
  * Node telemetry with true async context propagation via AsyncLocalStorage.

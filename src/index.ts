@@ -14,6 +14,11 @@ export type {
 } from "./core/types";
 export type { CreateTelemetryOptions };
 export { consoleTransport } from "./transports/console";
+export type {
+	HttpBatchTransport,
+	HttpBatchTransportOptions,
+} from "./transports/httpBatch";
+export { httpBatchTransport } from "./transports/httpBatch";
 
 /**
  * Browser-safe telemetry.

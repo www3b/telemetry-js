@@ -43,7 +43,6 @@ export type Telemetry = {
 	};
 	track: (name: string, props?: Record<string, unknown>) => void;
 
-	// sync + async (best-effort in browser; true async propagation in node entry)
 	withScope: <T>(ctx: Ctx, fn: () => T) => T;
 
 	setGlobalContext: (ctx: Ctx) => void;
