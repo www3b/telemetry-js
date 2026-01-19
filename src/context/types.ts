@@ -11,8 +11,12 @@ export type ContextManager = {
 export function mergeCtx(...parts: Array<Ctx | undefined>): Ctx {
 	const out: Ctx = {};
 	for (const p of parts) {
-		if (!p) continue;
-		for (const k of Object.keys(p)) out[k] = p[k];
+		if (!p) {
+			continue;
+		}
+		for (const k of Object.keys(p)) {
+			out[k] = p[k];
+		}
 	}
 	return out;
 }

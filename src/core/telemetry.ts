@@ -15,9 +15,15 @@ export function createTelemetryWithContext(
 	const pipeline = new Pipeline();
 
 	const base: Ctx = {};
-	if (opts.app) base.app = opts.app;
-	if (opts.version) base.version = opts.version;
-	if (Object.keys(base).length) ctxm.setGlobal(base);
+	if (opts.app) {
+		base.app = opts.app;
+	}
+	if (opts.version) {
+		base.version = opts.version;
+	}
+	if (Object.keys(base).length) {
+		ctxm.setGlobal(base);
+	}
 
 	const emit = (record: Envelope["record"], extraCtx?: Ctx) => {
 		const entry: Envelope = {

@@ -33,7 +33,9 @@ export function compose(
 		let idx = -1;
 
 		const runner = async (i: number): Promise<void> => {
-			if (i <= idx) throw new Error("next() called multiple times");
+			if (i <= idx) {
+				throw new Error("next() called multiple times");
+			}
 			idx = i;
 
 			const mw = middlewares[i];

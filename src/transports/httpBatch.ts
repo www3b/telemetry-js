@@ -98,7 +98,9 @@ export function httpBatchTransport(
 		batch: Envelope[],
 		keepalive: boolean,
 	): Promise<void> => {
-		if (!fetchFn) return;
+		if (!fetchFn) {
+			return;
+		}
 
 		const { bodyText } = buildBody(batch);
 
@@ -124,9 +126,15 @@ export function httpBatchTransport(
 	const flushInternal = async (
 		reason: "timer" | "size" | "manual" | "unload",
 	): Promise<void> => {
-		if (stopped) return;
-		if (flushing) return;
-		if (queue.length === 0) return;
+		if (stopped) {
+			return;
+		}
+		if (flushing) {
+			return;
+		}
+		if (queue.length === 0) {
+			return;
+		}
 
 		flushing = true;
 		try {
@@ -153,7 +161,9 @@ export function httpBatchTransport(
 	const getQueueSize = () => queue.length;
 
 	const pushEntry = (entry: Envelope): void => {
-		if (stopped) return;
+		if (stopped) {
+			return;
+		}
 
 		if (queue.length >= maxQueue) {
 			if (dropOldest) {
@@ -192,7 +202,9 @@ export function httpBatchTransport(
 
 	if (flushOnUnload && typeof window !== "undefined") {
 		const onUnloadLike = () => {
-			if (queue.length === 0) return;
+			if (queue.length === 0) {
+				return;
+			}
 
 			const batch = queue.splice(0, maxBatch);
 			const { bodyText, bodyBlob } = buildBody(batch);
@@ -212,7 +224,9 @@ export function httpBatchTransport(
 
 		window.addEventListener("pagehide", onUnloadLike);
 		window.addEventListener("visibilitychange", () => {
-			if (document.visibilityState === "hidden") onUnloadLike();
+			if (document.visibilityState === "hidden") {
+				onUnloadLike();
+			}
 		});
 
 		const originalStop = stop;
