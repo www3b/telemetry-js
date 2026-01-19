@@ -12,16 +12,16 @@ export class Pipeline {
 		this.transports.push(t);
 	}
 
-	async dispatch(env: Envelope): Promise<void> {
+	async dispatch(entry: Envelope): Promise<void> {
 		const terminal = async () => {
 			// do not fail the whole chain because one transport failed
 			await Promise.allSettled(
-				this.transports.map((t) => Promise.resolve(t(env))),
+				this.transports.map((t) => Promise.resolve(t(entry))),
 			);
 		};
 
 		const run = compose(this.middlewares, terminal);
-		await run(env);
+		await run(entry);
 	}
 }
 
@@ -29,7 +29,7 @@ export function compose(
 	middlewares: Middleware[],
 	terminal: () => Promise<void>,
 ) {
-	return async (env: Envelope) => {
+	return async (entry: Envelope) => {
 		let idx = -1;
 
 		const runner = async (i: number): Promise<void> => {
@@ -42,7 +42,7 @@ export function compose(
 				return;
 			}
 
-			await mw(env, () => runner(i + 1));
+			await mw(entry, () => runner(i + 1));
 		};
 
 		await runner(0);

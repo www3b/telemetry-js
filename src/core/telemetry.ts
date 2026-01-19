@@ -20,13 +20,13 @@ export function createTelemetryWithContext(
 	if (Object.keys(base).length) ctxm.setGlobal(base);
 
 	const emit = (record: Envelope["record"], extraCtx?: Ctx) => {
-		const env: Envelope = {
+		const entry: Envelope = {
 			ts: now(),
 			ctx: { ...ctxm.get(), ...(extraCtx ?? {}) },
 			record,
 		};
 
-		void pipeline.dispatch(env);
+		void pipeline.dispatch(entry);
 	};
 
 	return {

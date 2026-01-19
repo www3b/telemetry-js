@@ -2,11 +2,11 @@ import type { Envelope, Transport } from "../core/types";
 import { safeJsonStringify } from "../utils/safeJson";
 
 export function consoleTransport(): Transport {
-	return (env: Envelope) => {
-		const line = safeJsonStringify(env);
+	return (entry: Envelope) => {
+		const line = safeJsonStringify(entry);
 
-		if (env.record.kind === "log") {
-			const lvl = env.record.level;
+		if (entry.record.kind === "log") {
+			const lvl = entry.record.level;
 			const fn =
 				lvl === "debug"
 					? console.debug
@@ -17,7 +17,7 @@ export function consoleTransport(): Transport {
 							: console.error;
 
 			// show plain message for logs
-			fn(env.record.msg);
+			fn(entry.record.msg);
 			return;
 		}
 

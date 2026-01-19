@@ -24,10 +24,10 @@ export type Envelope = {
 	record: TelemetryRecord;
 };
 
-export type Transport = (env: Envelope) => void | Promise<void>;
+export type Transport = (entry: Envelope) => void | Promise<void>;
 
 export type Middleware = (
-	env: Envelope,
+	entry: Envelope,
 	next: () => void | Promise<void>,
 ) => void | Promise<void>;
 

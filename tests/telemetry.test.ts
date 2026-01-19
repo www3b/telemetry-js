@@ -7,8 +7,8 @@ describe("telemetry-js (node)", () => {
 		const t = createTelemetry({ app: "test" });
 
 		const seen: Envelope[] = [];
-		t.addTransport((env) => {
-			seen.push(env);
+		t.addTransport((entry) => {
+			seen.push(entry);
 		});
 
 		await t.withScope({ requestId: "r1" }, async () => {
