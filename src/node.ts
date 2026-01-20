@@ -14,6 +14,8 @@ export type {
 } from "./core/types";
 export { consoleTransport } from "./transports/console";
 export type { CreateTelemetryOptions };
+export type { DedupeOptions } from "./middlewares/dedupe";
+export { dedupe } from "./middlewares/dedupe";
 export type {
 	RateLimitOptions,
 	RateLimitWindow,
