@@ -16,8 +16,8 @@ export function consoleTransport(): Transport {
 							? console.warn
 							: console.error;
 
-			// show plain message for logs
-			fn(entry.record.msg);
+			// show plain message with data object
+			fn(entry.record.msg, entry.record.data);
 			return;
 		}
 

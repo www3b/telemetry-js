@@ -13,6 +13,8 @@ export type {
 	Transport,
 } from "./core/types";
 export type { CreateTelemetryOptions };
+export type { MaskOptions } from "./middlewares/secret";
+export { secret } from "./middlewares/secret";
 export { consoleTransport } from "./transports/console";
 export type {
 	HttpBatchTransport,

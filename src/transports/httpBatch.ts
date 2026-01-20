@@ -11,7 +11,7 @@ export type HttpBatchTransportOptions = {
 	/** Max entries per request */
 	maxBatch?: number;
 
-	/** Max queued entries before we start dropping (backpressure) */
+	/** Max queued entries before start dropping */
 	maxQueue?: number;
 
 	/** Additional headers for fetch */
