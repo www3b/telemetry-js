@@ -100,7 +100,7 @@ export function dedupe(options: DedupeOptions = {}): Middleware {
 
     const existing = cache.get(id);
     if (existing) {
-      if (t <= existing.expiresAt) {
+      if (t < existing.expiresAt) {
         // drop
         existing.lastSeen = t;
         touchLRU(cache, id, existing);
