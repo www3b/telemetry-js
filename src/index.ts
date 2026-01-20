@@ -12,12 +12,17 @@ export type {
 	Telemetry,
 	Transport,
 } from "./core/types";
+export { consoleTransport } from "./transports/console";
 export type { CreateTelemetryOptions };
+export type {
+	RateLimitOptions,
+	RateLimitWindow,
+} from "./middlewares/rateLimit";
+export { rateLimit } from "./middlewares/rateLimit";
 export type { SampleConfig } from "./middlewares/sample";
 export { sample } from "./middlewares/sample";
 export type { MaskOptions } from "./middlewares/secret";
 export { secret } from "./middlewares/secret";
-export { consoleTransport } from "./transports/console";
 export type {
 	HttpBatchTransport,
 	HttpBatchTransportOptions,

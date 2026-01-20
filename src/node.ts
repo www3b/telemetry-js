@@ -1,3 +1,9 @@
+import { NodeAlsContext } from "./context/nodeAls";
+import {
+	type CreateTelemetryOptions,
+	createTelemetryWithContext,
+} from "./core/telemetry";
+
 export type {
 	Ctx,
 	Envelope,
@@ -7,14 +13,12 @@ export type {
 	Transport,
 } from "./core/types";
 export { consoleTransport } from "./transports/console";
-
-import { NodeAlsContext } from "./context/nodeAls";
-import {
-	type CreateTelemetryOptions,
-	createTelemetryWithContext,
-} from "./core/telemetry";
-
 export type { CreateTelemetryOptions };
+export type {
+	RateLimitOptions,
+	RateLimitWindow,
+} from "./middlewares/rateLimit";
+export { rateLimit } from "./middlewares/rateLimit";
 export type { SampleConfig } from "./middlewares/sample";
 export { sample } from "./middlewares/sample";
 export type { MaskOptions } from "./middlewares/secret";
