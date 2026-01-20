@@ -3,7 +3,7 @@ import type { Envelope } from "../src/core/types";
 import { sample } from "../src/middlewares/sample";
 import { createTelemetry } from "../src/node";
 
-describe("Sample middleware", () => {
+describe("sample middleware", () => {
 	it("drops logs by level and events by name", async () => {
 		const t = createTelemetry();
 
