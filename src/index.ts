@@ -13,6 +13,8 @@ export type {
 	Transport,
 } from "./core/types";
 export type { CreateTelemetryOptions };
+export type { SampleConfig } from "./middlewares/sample";
+export { sample } from "./middlewares/sample";
 export type { MaskOptions } from "./middlewares/secret";
 export { secret } from "./middlewares/secret";
 export { consoleTransport } from "./transports/console";
