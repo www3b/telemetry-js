@@ -145,3 +145,131 @@ describe("httpBatchTransport", () => {
 		t.stop();
 	});
 });
+
+describe("httpBatchTransport retry/backoff", () => {
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it("retries on retryable HTTP statuses and eventually succeeds", async () => {
+    vi.useFakeTimers();
+
+    let callCount = 0;
+
+    const fetchFn = vi.fn(async (_url: any, _init?: any) => {
+      callCount += 1;
+
+      if (callCount < 3) {
+        return new Response(null, { status: 503 });
+      }
+
+      return new Response(null, { status: 204 });
+    });
+
+    const t = httpBatchTransport({
+      url: "http://localhost/telemetry",
+      flushIntervalMs: 0,
+      maxBatch: 2,
+      fetchFn,
+      flushOnUnload: false,
+      retry: {
+        retries: 3,
+        baseDelayMs: 100,
+        maxDelayMs: 1000,
+        jitter: 0,
+        random: () => 0.5
+      }
+    });
+
+    t(makeEntry(1));
+    t(makeEntry(2)); // triggers flushInternal("size")
+
+    // initial attempt happens quickly
+    await Promise.resolve();
+    expect(fetchFn).toHaveBeenCalledTimes(1);
+
+    // first retry after 100ms
+    await vi.advanceTimersByTimeAsync(100);
+    await Promise.resolve();
+    expect(fetchFn).toHaveBeenCalledTimes(2);
+
+    // second retry after 200ms (exponential)
+    await vi.advanceTimersByTimeAsync(200);
+    await Promise.resolve();
+    expect(fetchFn).toHaveBeenCalledTimes(3);
+
+    t.stop();
+  });
+
+  it("retries on network errors (fetch throws) up to retries limit", async () => {
+    vi.useFakeTimers();
+
+    const fetchFn = vi.fn(async () => {
+      throw new Error("network");
+    });
+
+    const t = httpBatchTransport({
+      url: "http://localhost/telemetry",
+      flushIntervalMs: 0,
+      maxBatch: 1,
+      fetchFn,
+      flushOnUnload: false,
+      retry: {
+        retries: 2,
+        baseDelayMs: 100,
+        jitter: 0,
+        random: () => 0.5
+      }
+    });
+
+    t(makeEntry(1)); // triggers flush
+
+    await Promise.resolve();
+    expect(fetchFn).toHaveBeenCalledTimes(1);
+
+    await vi.advanceTimersByTimeAsync(100);
+    await Promise.resolve();
+    expect(fetchFn).toHaveBeenCalledTimes(2);
+
+    await vi.advanceTimersByTimeAsync(200);
+    await Promise.resolve();
+    expect(fetchFn).toHaveBeenCalledTimes(3);
+
+    t.stop();
+  });
+
+  it("does not retry on non-retryable HTTP statuses", async () => {
+    vi.useFakeTimers();
+
+    const fetchFn = vi.fn(async () => {
+      return new Response(null, { status: 400 });
+    });
+
+    const t = httpBatchTransport({
+      url: "http://localhost/telemetry",
+      flushIntervalMs: 0,
+      maxBatch: 1,
+      fetchFn,
+      flushOnUnload: false,
+      retry: {
+        retries: 5,
+        baseDelayMs: 100,
+        jitter: 0,
+        random: () => 0.5
+      }
+    });
+
+    t(makeEntry(1));
+
+    await Promise.resolve();
+    expect(fetchFn).toHaveBeenCalledTimes(1);
+
+    // even if time passes, no retries should be scheduled because status is not retryable
+    await vi.advanceTimersByTimeAsync(10_000);
+    await Promise.resolve();
+
+    expect(fetchFn).toHaveBeenCalledTimes(1);
+
+    t.stop();
+  });
+});
