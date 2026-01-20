@@ -74,8 +74,8 @@ type Bucket = {
 export function rateLimit(options: RateLimitOptions): Middleware {
   const pickKey = options.key;
   const now = options.now ?? Date.now;
-  const maxBuckets = options.maxBuckets ?? 10_000;
-  const bucketTtlMs = options.bucketTtlMs ?? 10 * 60_000; // 10 minutes
+  const maxBuckets = options.maxBuckets ?? 10000;
+  const bucketTtlMs = options.bucketTtlMs ?? 10 * 60000; // 10 minutes
 
   // Map key is: `${scopeKey}::${ruleKey}` where scopeKey depends on `options.key`
   const buckets = new Map<string, Bucket>();
