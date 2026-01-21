@@ -1,7 +1,23 @@
 {
-	"name": "telemetry-js",
+	"name": "@www3b/telemetry-js",
 	"version": "0.1.0",
 	"author": "www3b",
+	"description": "Lightweight telemetry pipeline for logs and events",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/www3b/telemetry-js.git"
+	},
+	"bugs": {
+		"url": "https://github.com/www3b/telemetry-js/issues"
+	},
+	"homepage": "https://github.com/www3b/telemetry-js#readme",
+	"keywords": [
+		"telemetry",
+		"logging",
+		"observability",
+		"middleware"
+	],
 	"type": "module",
 	"sideEffects": false,
 	"files": [
@@ -9,16 +25,32 @@
 	],
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.mjs",
-			"require": "./dist/index.cjs"
+			"import": {
+				"types": "./dist/index.d.mts",
+				"default": "./dist/index.mjs"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		},
+		"./node": {
+			"import": {
+				"types": "./dist/node.d.mts",
+				"default": "./dist/node.mjs"
+			},
+			"require": {
+				"types": "./dist/node.d.cts",
+				"default": "./dist/node.cjs"
+			}
 		}
 	},
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.mjs",
-	"types": "./dist/index.d.ts",
+	"types": "./dist/index.d.mts",
 	"scripts": {
 		"build": "tsdown",
+		"prepublishOnly": "npm run build",
 		"dev": "tsdown --watch",
 		"test": "vitest",
 		"lint": "biome lint .",
