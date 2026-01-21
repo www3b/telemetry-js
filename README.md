@@ -1,7 +1,26 @@
+<div align="center">
+  
 # telemetry-js
 
 Lightweight telemetry library for logs and events, designed for browser and Node.js environments.
 
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![Author](https://img.shields.io/badge/Author-www3b-blue.svg)](https://github.com/www3b)
+
+</div>
+
+## Navigation
+
+ - [Reason](#reason)
+ - [Core concepts](#core-concepts)
+ - [Installation](#installation)
+ - [Basic usage](#basic-usage)
+ - [Context propagation](#context-propagation)
+ - [Middlewares](#middlewares)
+ - [Transports](#transports)
+
+<br/>
 
 ## Reason
 
@@ -18,9 +37,10 @@ This library focuses on:
 - best-effort delivery that never blocks application logic
 - small surface area and readable code
 
-
+<br/>
 
 ## Core concepts
+
 
 ### Entry (Envelope)
 
@@ -71,11 +91,15 @@ If a middleware does **not** call `next()`, the entry is dropped.
 
 ---
 
+<br/>
+
 ## Installation
 
 ```bash
 npm install telemetry-js
 ```
+
+<br/>
 
 ## Basic usage
 
@@ -91,6 +115,8 @@ telemetry.log.info("app started");
 telemetry.track("page_view", { path: "/" });
 
 ```
+
+<br/>
 
 ## Context propagation
 
@@ -112,6 +138,8 @@ telemetry.withScope({ requestId: "r1" }, () => {
 ```
 
 ---
+
+<br/>
 
 ## Middlewares
 
@@ -240,6 +268,7 @@ Useful for collapsing repeated errors or identical events.
 
 ---
 
+<br/>
 
 ## Transports
 
