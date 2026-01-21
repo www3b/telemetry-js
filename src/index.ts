@@ -16,6 +16,8 @@ export { consoleTransport } from "./transports/console";
 export type { CreateTelemetryOptions };
 export type { DedupeOptions } from "./middlewares/dedupe";
 export { dedupe } from "./middlewares/dedupe";
+export type { MetaOptions, MetaProvider } from "./middlewares/meta";
+export { meta } from "./middlewares/meta";
 export type {
 	RateLimitOptions,
 	RateLimitWindow,
