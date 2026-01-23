@@ -6,6 +6,7 @@ Lightweight telemetry library for logs and events, designed for browser and Node
 
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![Version](https://img.shields.io/badge/Version-v0.1.0-yellow.svg)](https://github.com/www3b/telemetry-js)
 [![Author](https://img.shields.io/badge/Author-www3b-blue.svg)](https://github.com/www3b)
 
 </div>
